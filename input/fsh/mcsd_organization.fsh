@@ -45,7 +45,7 @@ Expression: "conformsTo('https://profiles.ihe.net/ITI/mCSD/StructureDefinition/I
 Severity: #error
 
 
-Mapping:  CHmCSDOrganizationToHCProfessional
+Mapping:  CHmCSDOrganizationToHCRegulatedOrganization
 Source:   CHmCSDOrganization
 Target:   "https://www.bag.admin.ch/epra"
 Title:    "HPD schema (DSMLv2/LDAP)"

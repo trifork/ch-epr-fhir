@@ -54,6 +54,13 @@ Description: "CH mCSD profile on Practitioner"
 * telecom[email].use = #work (exactly)
 * telecom[phone].use = #work (exactly)
 
+* qualification ^slicing.discriminator.type = #pattern
+* qualification ^slicing.discriminator.path = "code"
+* qualification ^slicing.rules = #open
+* qualification contains profession 1..* and specialisation 0..*
+* qualification[profession].code from HCProfessionalHcProfession (required)
+* qualification[specialisation].code from HCProfessionalHcSpecialisation (required)
+
 * extension contains HpdProviderCreationTimeExtension named creationTime 0..1 and 
         HcProfessionalPhysicalDeliveryOfficeNameExtension named physicalDeliveryOfficeName 0..* and
         HcProfessionalMedicalRecordsDeliveryEmailAddressExtension named medicalRecordsDeliveryEmailAddress 0..1 
@@ -103,6 +110,8 @@ Title:    "HPD schema (DSMLv2/LDAP)"
 * name.given -> "HCProfessional.givenName"
 * name.extension[initials] -> "HCProfessional.initials"
 * name.family -> "HCProfessional.sn"
+* qualification[profession].code -> "HCProfessional.hcProfession"
+* qualification[specialisation].code -> "HCProfessional.hcSpecialisation"
 * communication.coding.code -> "HCProfessional.hpdProviderLanguageSupported"
 * gender -> "HCProfessional.gender"
 * extension[medicalRecordsDeliveryEmailAddress] -> "HCProfessional.hpdMedicalRecordsDeliveryEmailAddress"
@@ -157,8 +166,8 @@ Description: "An example of CHmCSDPractitioner that contains the same informatio
 * telecom[+].system = #pager
 * telecom[=].value = "+41 79 001 00 07"
 * gender = #male
-* qualification[+].code = $sct#309343006 "Physician"
-* qualification[+].code = $medreg#1051 "General internal medicine"
+* qualification[profession].code = $sct#309343006 "Physician"
+* qualification[specialisation].code = $medreg#1051 "General internal medicine"
 * communication[+].coding = $bcp47#de
 * communication[+].coding = $bcp47#fr
 * communication[+].coding = $bcp47#en

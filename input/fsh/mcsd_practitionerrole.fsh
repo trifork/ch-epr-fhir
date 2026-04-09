@@ -15,8 +15,6 @@ Description: "CH mCSD profile on PractitionerRole"
 * identifier contains memberOf 0..1
 * identifier[memberOf] only HpdUidIdentifier
 * identifier[memberOf] ^short = "CN of the HPD Relationship where the referenced Practitioner is a member"
-* code from HCProfessionalHcProfession (required)
-* specialty from HCProfessionalHcSpecialisation (required)
 
 
 Invariant: ch-mcsd-practitionerrole-ihe-conformance
@@ -33,8 +31,6 @@ Title:    "HPD schema (DSMLv2/LDAP)"
 * identifier[memberOf] -> "Relationship.cn"
 * organization -> "Relationship.owner"
 * practitioner -> "Relationship.member"
-* code -> "HCProfessional.hcProfession"
-* specialty -> "HCProfessional.hcSpecialisation"
 
 
 Instance: ChmCSDPractitionerRolePeterPanSpitalXDept3
@@ -48,7 +44,6 @@ Relationship in the Swiss examples (CN=CommunityA:00000001004,OU=Relationship,DC
 * practitioner = Reference(CHmCSDPractitionerDrPeterPan)
 * organization = Reference(CHmCSDOrganizationSpitalXDept3)
 * code = $sct#309343006 "Physician"
-* specialty = $medreg#1051 "General internal medicine"
 
 
 Instance: ChmCSDPractitionerRolePeterPanPraxisP
@@ -62,4 +57,3 @@ Relationship in the Swiss examples (CN=CommunityA:00000001001,OU=Relationship,DC
 * practitioner = Reference(CHmCSDPractitionerDrPeterPan)
 * organization = Reference(CHmCSDOrganizationPraxisP)
 * code = $sct#309343006 "Physician"
-* specialty = $medreg#1051 "General internal medicine"

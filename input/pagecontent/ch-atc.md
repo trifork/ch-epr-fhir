@@ -32,15 +32,15 @@ The actors defined in this profile are based on the [IHE ITI TF-2](https://profi
 
 #### Patient Audit Record Repository
 
-For the actor Patient Audit Record Repository the actor Audit Record Repository in [IHE ITI Supplement Add RESTful Query to ATNA](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA_Rev3-3_TI_2021-07-02.pdf) is relevant.
+For the actor Patient Audit Record Repository the actor Audit Record Repository in [IHE ITI Supplement Add RESTful Query to ATNA](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf) is relevant.
 
-The Patient Audit Record Repository shall support the Retrieve Audit Message Option from the Audit Record Repository ([IHE ITI Supplement Add RESTful Query to ATNA, chapter 9.2.3](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA_Rev3-3_TI_2021-07-02.pdf)) with the search capabilities as defined in [IHE ITI TF-2, chapter 3.81](https://profiles.ihe.net/ITI/TF/Volume2/ITI-81.html) and the Audit Message Formats defined in Volume 3 - Content Profiles.
+The Patient Audit Record Repository shall support the Retrieve Audit Message Option from the Audit Record Repository ([IHE ITI Supplement Add RESTful Query to ATNA, chapter 9.2.3](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf)) with the search capabilities as defined in [IHE ITI TF-2, chapter 3.81](https://profiles.ihe.net/ITI/TF/Volume2/ITI-81.html) and the Audit Message Formats defined in [Volume 3 - CH:ATC Audit Event Content Profiles](volume3.html).
 
 #### Patient Audit Consumer
 
 For the actor Patient Audit Consumer the actor Audit Consumer in [IHE ITI Supplement Add RESTful Query to ATNA](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf) is relevant.
 
-The Patient Audit Consumer queries a Patient Audit Record Repository for Audit Events defined by this profile. The Patient Audit Consumer shall support the Retrieve Audit Message Option from the Audit Consumer ([IHE ITI Supplement Add RESTful Query to ATNA, chapter 9.2.3](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA_Rev3-3_TI_2021-07-02.pdf)).
+The Patient Audit Consumer queries a Patient Audit Record Repository for Audit Events defined by this profile. The Patient Audit Consumer shall support the Retrieve Audit Message Option from the Audit Consumer ([IHE ITI Supplement Add RESTful Query to ATNA, chapter 9.2.3](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf)).
 
 The Patient Audit Consumer should filter duplicate AuditEvents for display (e.g. Document Retrieval Audit Event for the same document access are in multiple Patient Audit Record Repositories, because the requesting and responding community need to make the AuditEvent available).
 
@@ -84,20 +84,9 @@ An actor from this profile (Column 1) shall implement all of the required transa
 	</thead>
 	<tbody>
 		<tr>
-			<td rowspan="3">
+			<td rowspan="2">
 				<p>Patient Audit Consumer</p>
 			</td>
-			<td>
-				<p>Required¹</p>
-			</td>
-			<td>
-				<p>ATNA - Secure Node</p>
-			</td>
-			<td>
-				<p>Amendment 1 of Annex 5 EPRO-FDHA</p>
-			</td>
-		</tr>
-		<tr>
 			<td>
 				<p>Required</p>
 			</td>
@@ -105,7 +94,7 @@ An actor from this profile (Column 1) shall implement all of the required transa
 				<p>IUA - Authorization Client</p>
 			</td>
 			<td>
-				<p><a href="https://profiles.ihe.net/ITI/IUA/index.html">IHE ITI Suppl IUA</a></p>
+				<p><a href="iti-iua.html">IHE ITI Suppl IUA</a></p>
 			</td>
 		</tr>
 		<tr>
@@ -120,20 +109,9 @@ An actor from this profile (Column 1) shall implement all of the required transa
 			</td>
 		</tr>
 		<tr>
-			<td rowspan="3">
+			<td rowspan="2">
 				<p>Patient Audit Record Repository</p>
 			</td>
-			<td>
-				<p>Required¹</p>
-			</td>
-			<td>
-				<p>ATNA - Secure Node</p>
-			</td>
-			<td>
-				<p>Amendment 1 of Annex 5 EPRO-FDHA</p>
-			</td>
-		</tr>
-		<tr>
 			<td>
 				<p>Required</p>
 			</td>
@@ -152,16 +130,13 @@ An actor from this profile (Column 1) shall implement all of the required transa
 				<p>IUA - Resource Server</p>
 			</td>
 			<td>
-				<p><a href="https://profiles.ihe.net/ITI/IUA/index.html">IHE ITI Suppl IUA</a></p>
+				<p><a href="iti-iua.html">IHE ITI Suppl IUA</a></p>
 			</td>
 		</tr>
 	</tbody>
 </table>
 
 _Table 3: Actor Grouping_
-
-¹: The Secure Node grouping is only required when a XUA token is used. See Section
-[Security Considerations](#security-considerations) for more details.
 
 Section [Security Considerations](#security-considerations) describes the groupings required for security considerations.
 
@@ -178,24 +153,4 @@ This profile supports the following Use Cases:
 </ol>
 
 ### Security Considerations
-
-The transaction is used to exchange sensitive information and requires authentication and authorization.
-This profile allows two authentication mechanisms; The Patient Audit Record Repository shall support both options,
-the Patient Audit Consumer shall select one option.
-
-<ol>
-<li>
-  Option 1: both actors are grouped with Secure Node or Secure Application implementing the "STX: TLS 1.2 floor using 
-  BCP195 Option" defined in the [IHE ITI TF-2, chapter 3.19.6.2.3](https://profiles.ihe.net/ITI/TF/Volume2/ITI-19.html#3.19.6.2.3);
-  the token incorporated with ITI-72 is a XUA token, as described in the Amendment 1 of Annex 5 EPRO-FDHA.
-</li>
-<li>
-  Option 2: the token incorporated with ITI-72 is an [Extended Access Token](Get Access Token [ITI-71]); the
-  transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with server 
-  certificates.
-</li>
-</ol>
-
-Access control shall be implemented by grouping the CH:ATC Audit Consumer and Audit Record Repository with the Authorization Client and Resource Server from the IUA trial implementation profile using the SAML Token option (see [IHE ITI Supplement IUA, chapter 3.72.4.3.2](https://profiles.ihe.net/ITI/IUA/index.html#372432-saml-token-option)). As defined therein, the CH:ATC Audit Consumer and Audit Record Repository shall implement the Incorporate Authorization Token [ITI-72] transaction to convey the XUA token.
-
-The CH:ATC Patient Audit Record Repository shall be grouped with CH:ADR, i.e. the CH:ATC Patient Audit Record Repository shall use the CH:ADR Authorization Decision Request transaction to authorize the transaction and enforce the authorization decision retrieved from CH:ADR Authorization Decision Response.
+This national extension enforces authentication and authorization of access using the IUA profile as described in [IUA](iti-iua.html).

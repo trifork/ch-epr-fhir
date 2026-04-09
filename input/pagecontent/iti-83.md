@@ -1,5 +1,5 @@
 This section describes the national extension for the Swiss EPR to the [Mobile Patient Identifier Cross-reference Query
-[ITI-83]](https://profiles.ihe.net/ITI/PIXm/ITI-83.html) transaction defined in the IUA profile published in the
+[ITI-83]](https://profiles.ihe.net/ITI/PIXm/ITI-83.html) transaction defined in the PIXm profile published in the
 IHE IT Infrastructure Technical Framework Trial Implementation “Patient Identifier Cross-referencing for mobile”.
 
 ### Scope
@@ -68,15 +68,16 @@ traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-00
 <div><figcaption>$ihe-pix Message response</figcaption></div>
 
 | Parameter                    | Cardinality | Data Type          | Description                                                                                                                                                               |
-|------------------------------|-------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FHIR Parameters Resource** |             |                    |                                                                                                                                                                           |
-| targetIdentifier             | **0..2**    | Identifier         | The identifier found. Constraints to include the assigning authority as specified in [ITI TF-2: Appendix E.3](https://profiles.ihe.net/ITI/TF/Volume2/ch-Z.html#page=16). |
-| targetId                     | **0..1**    | Reference(Patient) | The URL of the Patient Resource                                                                                                                                           |
+|------------------------------|------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **FHIR Parameters Resource** |            |                    |                                                                                                                                                                           |
+| targetIdentifier             | **0..2**   | Identifier         | The identifier found. Constraints to include the assigning authority as specified in [ITI TF-2: Appendix E.3](https://profiles.ihe.net/ITI/TF/Volume2/ch-Z.html#page=16). |
 {:class="table table-bordered"}
 
 See [Output Parameters example](Parameters-ParametersPIXmOutput.html) (and the corresponding 
 [profile](StructureDefinition-ch-pixm-out-parameters.html)) as response to the Mobile Patient Identifier 
 Cross-reference Query.
+
+For privacy reasons, the **targetId** parameter shall not be returned.
 
 ###### Target Domain not recognized
 
@@ -110,10 +111,9 @@ The CapabilityStatement resource for the **Patient Identifier Cross-reference Ma
 The transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with
 server certificates.
 
-The transaction SHALL use client authentication and authorization using basic authorization token as defined
-in the [IUA profile](https://profiles.ihe.net/ITI/IUA). The authorization token SHALL be conveyed as
-defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72)
-transaction.
+The transaction SHALL use client authentication and authorization using one of the following strategies:
+1. Use a basic access token defined in [IUA](iti-71.html) conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
+2. or, use mutual authentication (mTLS) on the transport layer.
 
 The actors SHALL support the _traceparent_ header handling, as defined in [Appendix: Trace Context](tracecontext.html).
 
@@ -121,12 +121,12 @@ The actors SHALL support the _traceparent_ header handling, as defined in [Appen
 
 ##### Patient Identifier Cross-reference Consumer Audit
 
-The **Patient Identifier Cross-reference Consumer** shall record a
+The **Patient Identifier Cross-reference Consumer** SHALL record an audit event according to
 [CH Audit Event for [ITI-83] Patient Identifier Cross-reference Consumer](StructureDefinition-ChAuditEventIti83Consumer.html)
 ([example](AuditEvent-ChAuditEventIti83ConsumerExample.html)).
 
 ##### Patient Identifier Cross-reference Manager Audit
 
-The **Patient Identifier Cross-reference Manager** shall record a
+The **Patient Identifier Cross-reference Manager** SHALL record an audit event according to
 [CH Audit Event for [ITI-83] Patient Identifier Cross-reference Manager](StructureDefinition-ChAuditEventIti83Manager.html)
 ([example](AuditEvent-ChAuditEventIti83ManagerExample.html)).

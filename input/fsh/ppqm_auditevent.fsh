@@ -37,7 +37,7 @@ RuleSet: ChAuditEventPpq3Rules
     * system = "urn:ietf:rfc:3986"
   // About the role: the CH:PPQ-1 profile specifies the role as "Security Resource" (13), but BALP currently only
   // allows 3, 4 and 20 for that slice.
-  // https://profiles.ihe.net/ITI/BALP/1.1.3/ValueSet-RestObjectRoles.html
+  // https://profiles.ihe.net/ITI/BALP/1.1.4/ValueSet-RestObjectRoles.html
   * role = $objectRole#4 "Domain Resource"
 * entity[patient] ^short = "The patient whose privacy policies are being managed"
 
@@ -92,7 +92,7 @@ RuleSet: ChAuditEventPpq3ExampleRules
 * insert ChExampleAuditEventEntityPatientRules
 * type = $auditEventType#rest "Restful Operation"
 * subtype[ppq3] = urn:e-health-suisse:event-type-code#PPQ-3 "Mobile Privacy Policy Feed"
-* agent[server].network.address = "https://example.org/fhir/"
+* agent[server].network.address = "http://example.com"
 * entity[data]
   * type = $auditEntityType#2 "System Object"
   * role = $objectRole#4 "Domain Resource"
@@ -111,17 +111,17 @@ Usage:      #example
   * resource = ChAuditEventPpq3CreateExample
   * request
     * method = #POST
-    * url = "http://example.org/fhir/AuditEvent"
+    * url = "http://example.com/AuditEvent"
 * entry[+]
   * resource = ChAuditEventPpq3UpdateExample
   * request
     * method = #POST
-    * url = "http://example.org/fhir/AuditEvent"
+    * url = "http://example.com/AuditEvent"
 * entry[+]
   * resource = ChAuditEventPpq3DeleteExample
   * request
     * method = #POST
-    * url = "http://example.org/fhir/AuditEvent"
+    * url = "http://example.com/AuditEvent"
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ RuleSet: ChAuditEventPpq5ExampleRules
 * type = $auditEventType#rest "Restful Operation"
 * subtype[ppq5] = urn:e-health-suisse:event-type-code#PPQ-5 "Mobile Privacy Policy Retrieve"
 * subtype[anySearch] = $restfulInteraction#search "search"
-* agent[server].network.address = "https://example.org/fhir/"
+* agent[server].network.address = "http://example.com"
 * entity[query]
   * type = $auditEntityType#2 "System Object"
   * role = $objectRole#24 "Query"

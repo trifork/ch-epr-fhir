@@ -35,7 +35,10 @@ The additional Swiss EPR metadata is defined with:
 * [DocumentEntry.originalProviderRole ](#documententryoriginalproviderrole) (Annex 5.1 1.2.4.4)
 
 The request Bundle SHALL follow the [CH MHD Provide Document Bundle Comprehensive](StructureDefinition-ch-mhd-providedocumentbundle-comprehensive.html)
-Profile ([example: Bundle: 2-7-BundleProvideDocument](Bundle-2-7-BundleProvideDocument.html)).
+Profile ([example: Bundle: BundleProvideDocument](Bundle-BundleProvideDocument.html)).
+
+The `DocumentReference.content.attachment.url` value SHALL point to a Binary resource included in the Bundle (see
+[Resolving references in Bundles](https://hl7.org/fhir/R4/bundle.html#references) for how to create a valid reference).
 
 ##### DeletionStatus
 
@@ -64,7 +67,7 @@ The values are defined in the ValueSet [DocumentEntry.originalProviderRole](http
 #### Provide Document Bundle Response Message
 
 The response Bundle SHALL follow the [CH MHD Provide Document Bundle Comprehensive Response](StructureDefinition-ch-mhd-providedocumentbundle-comprehensive-response.html)
-Profile ([example: Bundle: 2-7-BundleProvideDocument-Response](Bundle-2-7-BundleProvideDocument-Response.html)).
+Profile ([example: Bundle: BundleProvideDocument-Response](Bundle-BundleProvideDocument-Response.html)).
 
 #### CapabilityStatement Resource
 
@@ -77,10 +80,9 @@ The CapabilityStatement resource for the **Document Recipient** is [MHD Document
 The transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with 
 server certificates. 
 
-The transaction SHALL use client authentication and authorization using extended authorization token as defined 
-in the [IUA profile](https://profiles.ihe.net/ITI/IUA). The extended authorization token SHALL be conveyed as 
-defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) 
-transaction.
+The transaction SHALL use client authentication and authorization using one of the following strategies:
+1. Use an extended access token defined in [IUA](iti-71.html) conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
+2. or, use mutual authentication (mTLS) on the transport layer in combination with a XUA token for authorization from the Get X-User Assertion transaction (Annex 5.1 1.6.4.2). The XUA token SHALL be conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
 
 The Document Recipient actor SHALL be grouped with the Authorization Decision Consumer actor of the CH:ADR profile
 defined in Extension 2.1 to Annex 5 of the ordinances and perform an Authorization Decision Request [CH:ADR] for 
@@ -92,12 +94,12 @@ The actors SHALL support the _traceparent_ header handling, as defined in [Appen
 
 ##### Document Source Audit
 
-The **Document Source** shall record an
+The **Document Source** SHALL record an audit event according to
 [CH Audit Event for [ITI-65] Document Source](StructureDefinition-ChAuditEventIti65Source.html) 
 ([example](AuditEvent-ChAuditEventIti65SourceExample.html)).
 
 ##### Document Recipient Audit
 
-The **Document Recipient** shall record an
+The **Document Recipient** SHALL record an audit event according to
 [CH Audit Event for [ITI-65] Document Recipient](StructureDefinition-ChAuditEventIti65Recipient.html)
 ([example](AuditEvent-ChAuditEventIti65RecipientExample.html)).

@@ -1,21 +1,91 @@
+### DSTU5 Release 2025-12-18
+
+#### Resolved Issues
+* IUA: Specified the signature for the ITI-71 token requests [#419](https://github.com/ehealthsuisse/ch-epr-fhir/issues/419)
+* Unknown code '26' in the CodeSystem 'http://terminology.hl7.org/CodeSystem/object-role' version '1.0.0': waiting to be added, see [#190](https://github.com/ehealthsuisse/ch-epr-fhir/issues/190)
+* Security Audit Considerations: Clarify that audit events can be recorded via syslog or FHIR [#436](https://github.com/ehealthsuisse/ch-epr-fhir/issues/436)
+* Remove Document Consumer page count request limit requirement from ITI-67 [#391](https://github.com/ehealthsuisse/ch-epr-fhir/issues/391)
+* MHD: Clarify that designationType must be fixed to 'Procedure' for Swiss EPR in CHMhdSubmissionSetComprehensive [#385](https://github.com/ehealthsuisse/ch-epr-fhir/issues/385)
+* Add link to EPR architecture information in introduction [#394](https://github.com/ehealthsuisse/ch-epr-fhir/issues/394)
+* PIXm: Clarify need for organization profile by renaming to CHPIXmFeedOrganization and moving from PDQm to PIXm Feed, changing examples from gln to oid [#392](https://github.com/ehealthsuisse/ch-epr-fhir/issues/392)
+* IUA: Updated the reference to Annex 8 of the ordinances [395](https://github.com/ehealthsuisse/ch-epr-fhir/issues/395)
+* IUA: Refactored the text and tables to clarify how the identity token shall be supplied in ITI-71 requests [#402](https://github.com/ehealthsuisse/ch-epr-fhir/issues/402)
+* IUA: Added text descriptions explaining the context of use [401](https://github.com/ehealthsuisse/ch-epr-fhir/issues/401)
+* IUA: Clarified wording on how an optional field can have a mandatory value [#400](https://github.com/ehealthsuisse/ch-epr-fhir/issues/400)
+* IUA: Corrected the required grant type for authorization code flow [#397](https://github.com/ehealthsuisse/ch-epr-fhir/issues/397)
+* IUA: Removed mTLS requirement for technical user [#382](https://github.com/ehealthsuisse/ch-epr-fhir/issues/382)
+* Sequence Diagrams - mention mTLS for ITI-65, 67, 68 [#357](https://github.com/ehealthsuisse/ch-epr-fhir/issues/357)
+* On ITI-81 transaction description in Volume 2 [#322](https://github.com/ehealthsuisse/ch-epr-fhir/issues/322)
+* Bundle profile for updating multiple document references in CH:MHD-1 [#361](https://github.com/ehealthsuisse/ch-epr-fhir/issues/361) and [#351](https://github.com/ehealthsuisse/ch-epr-fhir/issues/351)
+* Updating MHD examples to PDF publication [#362](https://github.com/ehealthsuisse/ch-epr-fhir/issues/362) and [#364](https://github.com/ehealthsuisse/ch-epr-fhir/issues/364)
+* Update to Mobile Care Services Discovery (mCSD) to Release 4.0.0 [#346](https://github.com/ehealthsuisse/ch-epr-fhir/issues/346) and fix link [#352](https://github.com/ehealthsuisse/ch-epr-fhir/issues/352)
+* MHD: Remove authorOrg extension prohibition from CHMhdSubmissionSetComprehensive [#403](https://github.com/ehealthsuisse/ch-epr-fhir/issues/403)
+* Tracecontext: improve wording of the requirements [#393](https://github.com/ehealthsuisse/ch-epr-fhir/issues/393)
+* Fix copy-paste errors in IHE profile names [#375](https://github.com/ehealthsuisse/ch-epr-fhir/issues/375) [#376](https://github.com/ehealthsuisse/ch-epr-fhir/issues/376)
+* mCSD: increase min cardinality of Organization names and types [#387](https://github.com/ehealthsuisse/ch-epr-fhir/issues/387)
+* PDQm: modify the ITI-119 AuditEvents to expect a Basic Token, not an Extended one [#350](https://github.com/ehealthsuisse/ch-epr-fhir/issues/350)
+* mCSD: restrict the Practitioner gender code feeding to male and female [#407](https://github.com/ehealthsuisse/ch-epr-fhir/issues/407)
+* ATNA: update RESTful ATNA profile to Rev. 3.5 [#406](https://github.com/ehealthsuisse/ch-epr-fhir/issues/406)
+* ATC: add Tracecontext values to ATC examples [#371](https://github.com/ehealthsuisse/ch-epr-fhir/issues/371)
+* ATC: Use of group entry audit event [#404](https://github.com/ehealthsuisse/ch-epr-fhir/issues/404)
+* ATC: Updated examples [#440](https://github.com/ehealthsuisse/ch-epr-fhir/issues/440)
+* MHD: Relax requirement on the DocumentReference.author [#347](https://github.com/ehealthsuisse/ch-epr-fhir/issues/347)
+* Clarify the meaning of "Actor" and "Options" [#379](https://github.com/ehealthsuisse/ch-epr-fhir/issues/379)
+* PPQm: describe the blocking option of EPR policy sets based on template 301 [#368](https://github.com/ehealthsuisse/ch-epr-fhir/issues/368)
+* Updated to latest IHE ITI IG's (minor PIXm 3.1.0, minor PDQm 3.2.0, patch MHD 4.2.3, patch BALP 1.1.4)
+
+#### Closed Issues
+* CH:PPQ: IHE PCF not a replacement for CH:PPQ/CH:ADR [#388](https://github.com/ehealthsuisse/ch-epr-fhir/issues/388)
+* ATC: ATC_LOG_READ, ATC_DOC_* required by Annex 2 [#390](https://github.com/ehealthsuisse/ch-epr-fhir/issues/390), [#389](https://github.com/ehealthsuisse/ch-epr-fhir/issues/389)
+* ATC: No extended AuditEvent for CH:ADR decision logging [#356](https://github.com/ehealthsuisse/ch-epr-fhir/issues/356)
+* MHD: Binding DocumentReference.securityLabel not changed sind binding in R5 less strict [#386](https://github.com/ehealthsuisse/ch-epr-fhir/issues/386)
+* RESTFul ATNA: no special profile defined for AuditEvent (no requirement on client) [#426](https://github.com/ehealthsuisse/ch-epr-fhir/issues/426)
+* ATC: PolicyAuditEvent: fix mapping of entity:Resource [#373](https://github.com/ehealthsuisse/ch-epr-fhir/issues/373)
+* PIXm: ITI-104: localID required in parameters [#380](https://github.com/ehealthsuisse/ch-epr-fhir/issues/380)
+* MHD: Usage of ADR in case of paging [#399](https://github.com/ehealthsuisse/ch-epr-fhir/issues/399)
+
+
+
 ### DSTU5 Informative Ballot 2025 
 
 #### Open Issues
 
 * Unknown code '26' in the CodeSystem 'http://terminology.hl7.org/CodeSystem/object-role' version '1.0.0': waiting to be added, see [#190](https://github.com/ehealthsuisse/ch-epr-fhir/issues/190)
-* in review: ITI-71: Conflict between OAuth2 scope and ITI-71 scope [#245](https://github.com/ehealthsuisse/ch-epr-fhir/issues/245)  
-* Remove `DocumentReference.date` from the MHD profile [#274](https://github.com/ehealthsuisse/ch-epr-fhir/issues/274)
+* Interplay of IUA and MHD for DICOM decuments [#177](https://github.com/ehealthsuisse/ch-epr-fhir/issues/177) 
 
 #### Resolved Issues
 
+* TODO
+* CH:ATC: Updated references and minor textual corrections in CH:ATC, ITI-81 and Volume 3 [#323](https://github.com/ehealthsuisse/ch-epr-fhir/issues/323), [#324](https://github.com/ehealthsuisse/ch-epr-fhir/issues/324), [#326](https://github.com/ehealthsuisse/ch-epr-fhir/issues/326), [#327](https://github.com/ehealthsuisse/ch-epr-fhir/issues/327)
+* fix mCSD capability statement expected actions for update, delete [#310](https://github.com/ehealthsuisse/ch-epr-fhir/issues/310)
 * add SCT edition in the expansion parameters [#256](https://github.com/ehealthsuisse/ch-epr-fhir/issues/256)
 * Wrong optionality of the attribute Consent.provision.period [#255](https://github.com/ehealthsuisse/ch-epr-fhir/issues/255)
 * integrate CH:ATC into this implementation guide [#257](https://github.com/ehealthsuisse/ch-epr-fhir/issues/257)
 * Wrong AuditEvent action for the CH:MHD-1 transaction [#270](https://github.com/ehealthsuisse/ch-epr-fhir/issues/270)
-* Upgrade to IHE mCSD v3.9.0 [#278](https://github.com/ehealthsuisse/ch-epr-fhir/issues/278)
+* Upgrade to IHE mCSD v4.0.0-comment [#278](https://github.com/ehealthsuisse/ch-epr-fhir/issues/278)
 * Update the PPQm-3 and PPQm-5 AuditEvents to BALP v1.1.3 [#278](https://github.com/ehealthsuisse/ch-epr-fhir/issues/278)
 * Upgrade to IHE PDQm v3.1.0 [#281](https://github.com/ehealthsuisse/ch-epr-fhir/issues/281)
-
+* MHD: document the use of `DocumentReference.content.attachment.url` [#276](https://github.com/ehealthsuisse/ch-epr-fhir/issues/276)
+* MHD: invalid mapping of the creation time, remove date [#299](https://github.com/ehealthsuisse/ch-epr-fhir/issues/299)
+* MHD: define the mapping of referenceIdList to context.related [#294](https://github.com/ehealthsuisse/ch-epr-fhir/issues/294)
+* Remove targetId from the ITI-83 response [#269](https://github.com/ehealthsuisse/ch-epr-fhir/issues/269)
+* Use a logical reference (EPR-SPID) to the patient in MHD [#269](https://github.com/ehealthsuisse/ch-epr-fhir/issues/269)
+* Remove `DocumentReference.date` from the MHD profile [#274](https://github.com/ehealthsuisse/ch-epr-fhir/issues/274)
+* Fix dependency to hl7.terminology [#290](https://github.com/ehealthsuisse/ch-epr-fhir/issues/290)
+* IUA: Incorporate Access Token [ITI-72] not mentioned in the IUA profile [#249](https://github.com/ehealthsuisse/ch-epr-fhir/issues/249)
+* IUA: Add Authenticate User transaction [#302](https://github.com/ehealthsuisse/ch-epr-fhir/issues/302) and upgrade versions [#300](https://github.com/ehealthsuisse/ch-epr-fhir/issues/300)   
+* PPQm: Allow additional search criteria in CH:PPQ-5 [#289](https://github.com/ehealthsuisse/ch-epr-fhir/issues/289)
+* PPQm: Minor textual corrections and updates of links [#334](https://github.com/ehealthsuisse/ch-epr-fhir/issues/334)
+* ATNA: precise use of STX:HTTPS IUA [#307](https://github.com/ehealthsuisse/ch-epr-fhir/issues/307), [#267](https://github.com/ehealthsuisse/ch-epr-fhir/issues/267), [#265](https://github.com/ehealthsuisse/ch-epr-fhir/issues/265)
+* CH MHD-1: wrong actor Document Recipient, should be Document Responder [#317](https://github.com/ehealthsuisse/ch-epr-fhir/issues/317)
+* mCSD: add Bundle profile and allow only transaction in bundle [#315](https://github.com/ehealthsuisse/ch-epr-fhir/issues/315)
+* Add NamingSystems, update example URLs (http://example.com, urn:oid:2.999) to fix unresolved URLs and add these which are not expected to resolve to the suppressed messages [#329](https://github.com/ehealthsuisse/ch-epr-fhir/issues/329)
+* PIXm: fix cardinality of the main user agent in ITI-104 Manager Update audit event [#330](https://github.com/ehealthsuisse/ch-epr-fhir/issues/330)
+* Fix the level for MustSupport in case of slicing for consistency [#332](https://github.com/ehealthsuisse/ch-epr-fhir/issues/332)
+* Add [pin-canonicals](http://build.fhir.org/ig/FHIR/fhir-tools-ig/branches/master/CodeSystem-ig-parameters.html#:~:text=for%20further%20information-,pin%2Dcanonicals,-Pin%20Canonical%20Versions) parameter to define the handling of unversioned canonical references [#336](https://github.com/ehealthsuisse/ch-epr-fhir/issues/336)
+* Fixed OperationDefinitions for PDQm and PIXm [#340](https://github.com/ehealthsuisse/ch-epr-fhir/issues/340)
+* Conflict between OAuth2 scope and ITI-71 scope [#245](https://github.com/ehealthsuisse/ch-epr-fhir/issues/245)  
+* ValueSet binding for DocumentReference.context.event in CH MHD DocumentReference Comprehensive [#318](https://github.com/ehealthsuisse/ch-epr-fhir/issues/318)
 
 ### DSTU4 Informative Ballot Release 2024-12-18 
 
@@ -26,6 +96,8 @@
 
 #### Resolved Issues
 
+* IUA: fixed the supported scopes and grant_types in IUA Get Authorization Server Metadata [ITI-103] transaction [#292](https://github.com/ehealthsuisse/ch-epr-fhir/issues/292) and [#293](https://github.com/ehealthsuisse/ch-epr-fhir/issues/293). 
+* IUA: fixed parameter naming in Get Access Token [ITI-71] transaction [#291](https://github.com/ehealthsuisse/ch-epr-fhir/issues/291).
 * IUA: The Get Access Token Request [ITI-71] authorization code flow is extended with the option, to send an identity assertion (SAML or OpenID Connect) in the token request message, required to support SAML authentication [#258](https://github.com/ehealthsuisse/ch-epr-fhir/issues/258).
 * IUA: The requirement to use mTLS in the Get Access Token Request [ITI-71] is removed. Client identification is now based on the client id, client secret and the signature of the request [#258](https://github.com/ehealthsuisse/ch-epr-fhir/issues/258).
 * IUA: The use case descriptions are updated [#258](https://github.com/ehealthsuisse/ch-epr-fhir/issues/258).

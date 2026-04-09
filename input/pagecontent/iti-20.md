@@ -13,7 +13,7 @@ Trial Implementation with the working title ”Add RESTful ATNA (Query and Feed)
 
 ### Referenced Standards
 
-1. [Add RESTful ATNA (Query and Feed), Rev. 3.3](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf)  
+1. [Add RESTful ATNA (Query and Feed), Rev. 3.5](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf)  
 2. This RESTful ATNA profile is based on Release 4 of the [HL7® FHIR®](https://hl7.org/fhir/R4/index.html) standard.
 
 ### Messages
@@ -57,6 +57,11 @@ The CapabilityStatement resource for the **Audit Record Repository** is
 
 ### Security Consideration
 
-TLS SHALL be used.
+The transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with
+server certificates.
+
+The transaction SHALL use client authentication and authorization using one of the following strategies:
+1. Use a basic access token defined in [IUA](iti-71.html) conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
+2. or, use mutual authentication (mTLS) on the transport layer.
 
 The actors SHALL support the _traceparent_ header handling, as defined in [Appendix: Trace Context](tracecontext.html).

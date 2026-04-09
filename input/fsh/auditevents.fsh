@@ -59,11 +59,13 @@ RuleSet: ChAuditEventRules
   * role = $objectRole#26 "Processing Element"
 
 
+// Rule Sets for our AuditEvents with basic access tokens
 RuleSet: ChAuditEventBasicRules
 * agent contains mainUser 0..1 and delegatedUser 0..1
 * insert ChAuditEventRules
 
 
+// Rule Sets for our AuditEvents with extended access tokens
 RuleSet: ChAuditEventExtendedRules
 * agent contains mainUser 1..1 and delegatedUser 0..1
 * insert ChAuditEventRules
@@ -107,7 +109,7 @@ Title:   "CH JWT Basic/Extended Token"
 // Rule Sets for examples
 
 // Base rules for all examples
-// Also update the copy of this rule set in ChAuditEventmCSD1ExampleRules (mcsd_auditevent.fsh)
+// Also update the copy of this rule set in ChAuditEventIti130ExampleRules (mcsd_auditevent.fsh)
 // Also update the copy of this rule set in ChAuditEventIti68ExampleRules (mhd_auditevent.fsh)
 RuleSet: ChExampleAuditEventBaseRules(sourceSlice, destinationSlice)
 * recorded = "2024-10-28T09:43:56Z"

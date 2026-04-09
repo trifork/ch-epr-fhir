@@ -29,3 +29,14 @@ Invariant:      is-hpd-uid
 Description:    "The identifier value shall have HPD UID format '${issuing authority}:${id}'"
 Expression:     "value.matches('^[a-zA-Z0-9\\\\._-]+:[a-zA-Z0-9\\\\._-]+$')"
 Severity:       #error
+
+Profile: DicomStudyInstanceUidIdentifier
+Parent: Identifier
+Id: DicomStudyInstanceUidIdentifier
+Title: "DICOM Study Instance UID"
+Description: "Identifier [representation](https://www.hl7.org/fhir/imagingstudy.html#notes) of DICOM Study Instance UID "
+* ^url = "http://fhir.ch/ig/ch-epr-fhir/StructureDefinition/DicomStudyInstanceUidIdentifier"
+* system 1..
+* system = "urn:dicom:uid" (exactly)
+* value 1..
+* value obeys oid-start

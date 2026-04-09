@@ -20,13 +20,18 @@ component "EPR App" {
 
   [RESTful ATNA Secure Node] as ATNANode
 
-  [Care Services Selective Consumer] as mCSDSelectiveConsumer
-  [Care Services Source] as mCSDSelectiveSource
+  [Query Client] as mCSDQueryClient
+  [Data Source] as mCSDDataSource
 
   [Policy Source] as PPQmPolicySource
   [Policy Consumer] as PPQmPolicyConsumer
 
   [Patient Audit Consumer] as ATCPatientAuditConsumer
+}
+
+component "IdP" {
+  [User Authentication Provider] as UAProvider
+  IUAClient --> UAProvider : CH:XUA Authenticate User
 }
 
 component "EPR API" {
@@ -43,18 +48,19 @@ component "EPR API" {
   PIXmSource --> PIXmManager : Patient Identity Feed FHIR [ITI-104]
 
   [MHD Document Recipient] as MHDRecipient
-  MHDSource --> MHDRecipient : Provide Document Bundle [ITI-65], \nUpdate Document Metadata [CH:MHD-1]
-
   [MHD Document Responder] as MHDResponder
+  MHDSource --> MHDRecipient : Provide Document Bundle [ITI-65]
+
+  MHDSource --> MHDResponder : Update Document Metadata [CH:MHD-1]
+
   MHDConsumer --> MHDResponder : Find Document References [ITI-67], \nRetrieve Document [ITI-68]
 
   [RESTful ATNA Audit Record Repository] as ATNARepository
   ATNANode --> ATNARepository : Record Audit Event [ITI-20]
 
-  [Care Services Selective Supplier] as mCSDSelectiveSupplier
-  mCSDSelectiveConsumer --> mCSDSelectiveSupplier : Find Matching Care Services [ITI-90]
-  [Care Services Directory] as mCSDSelectiveDirectory
-  mCSDSelectiveSource --> mCSDSelectiveDirectory : Care Services Feed [CH:mCSD-1]
+  [Directory] as mCSDDirectory
+  mCSDQueryClient --> mCSDDirectory : Find Matching Care Services [ITI-90]
+  mCSDDataSource --> mCSDDirectory : Care Services Feed [ITI-130]
 
   [Policy Repository] as PPQmPolicyRepository
   PPQmPolicySource --> PPQmPolicyRepository : Mobile Privacy Policy Feed [PPQ-3],\nMobile Privacy Policy Bundle Feed [PPQ-4]
@@ -64,7 +70,5 @@ component "EPR API" {
   ATCPatientAuditConsumer --> ATCPatientAuditRecordRepository : Retrieve Audit Event [ITI-81]	
 }
 
-[User Authentication Provider] as UAProvider
-IUAAuthServer --> UAProvider : Authenticate User
 
 @enduml

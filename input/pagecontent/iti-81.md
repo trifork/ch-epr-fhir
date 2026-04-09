@@ -1,4 +1,4 @@
-### Constraints on Retrieve ATNA Audit Event [ITI-81]
+### Constraints on Retrieve ATNA Audit Event [ITI-81] for CH:ATC
 
 The Retrieve ATNA Audit Event [ITI-81] transaction is defined in [IHE ITI TF-2](https://profiles.ihe.net/ITI/TF/Volume2/index.html) and the [IHE ITI Supplement Add RESTful Query to ATNA](https://www.ihe.net/uploadedFiles/Documents/ITI/IHE_ITI_Suppl_RESTful-ATNA.pdf). The following rules shall be applied for the CH:ATC profile.
 
@@ -29,7 +29,7 @@ The Patient Audit Consumer shall not use the following parameters in a query par
 **entity.identifier** is a parameter of token type. This parameter specifies unique identifier for the object. The parameter value should be identified in accordance to the entity type;   
 For example:   
 ``` http
-https://example.com/ARRservice/AuditEvent?date=ge2020-03-22&date=le2025-03-22&entity.identifier=urn:oid:2.16.756.5.30.1.127.3.10.3|5678
+http://example.com/ARRservice/AuditEvent?date=ge2020-03-22&date=le2025-03-22&entity.identifier=urn:oid:2.16.756.5.30.1.127.3.10.3|5678
 ```
 
 The Audit Record Repository shall match this parameter with the AuditEvent.entity.what.identifier field that is of type identifier (ParticipantObjectID in DICOM schema).
@@ -40,39 +40,21 @@ For the CH:ATC profile the entity.identifier has to be the EPR-SPID:
 
 #### Message Semantics for Response
 
-The returned AuditEvent FHIR resources in the Bundle shall conform the CH:ATC AuditEvent profile, see [Volume 3 - Content Profiles](volume-3.html).
+The returned AuditEvent FHIR resources in the Bundle shall conform the CH:ATC AuditEvent profile, see [Volume 3 - CH:ATC Audit Event Content Profiles](volume3.html).
 
 
 #### Security Considerations
 
-The transaction is used to exchange sensitive information and requires authentication and authorization.
-This profile allows two authentication mechanisms; The Patient Audit Record Repository shall support both options,
-the Patient Audit Consumer shall select one option.
+The transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with
+server certificates.
 
-<ol>
-<li>
-  Option 1: both actors are grouped with Secure Node or Secure Application implementing the "STX: TLS 1.2 floor using 
-  BCP195 Option" defined in the [IHE ITI TF-2, chapter 3.19.6.2.3](https://profiles.ihe.net/ITI/TF/Volume2/ITI-19.html#3.19.6.2.3);
-  the token incorporated with ITI-72 is a XUA token, as described in the Amendment 1 of Annex 5 EPRO-FDHA.
-</li>
-<li>
-  Option 2: the token incorporated with ITI-72 is an [Extended Access Token](Get Access Token [ITI-71]); the
-  transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with server 
-  certificates.
-</li>
-</ol>
-
-Access control shall be implemented by grouping the CH:ATC Audit Consumer and Audit Record Repository with the Authorization Client and Resource Server from the IUA trial implementation profile using the SAML Token option (see [IHE ITI Supplement IUA , chapter 3.72.4.3.2](https://profiles.ihe.net/ITI/IUA/index.html#372432-saml-token-option)). As defined therein, the CH:ATC Audit Consumer and Audit Record Repository shall implement the Incorporate Authorization Token [ITI-72] transaction to convey the XUA token.
-
-The actors shall implement the Incorporate Authorization Token [ITI-72] transaction with SAML token option, using the base64url encoded SAML assertion defined in XUA to the authorization header of the HTTP1.1 GET request with key "Bearer" as follows:
-``` http
-GET /example/url/to/resource/location HTTP/1.1
-Authorization: Bearer fFBGRNJru1FQd[…omitted for brevity…]44AzqT3Zg
-Host: examplehost.com
-```
+The transaction SHALL use client authentication and authorization using one of the following strategies:
+1. Use an extended access token defined in [IUA](iti-iua.html) conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
+2. or, use mutual authentication (mTLS) on the transport layer in combination with a XUA token for authorization from the Get X-User Assertion transaction (Annex 5.1 1.6.4.2). The XUA token SHALL be conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
 
 The CH:ATC Patient Audit Record Repository shall be grouped with CH:ADR, i.e. the CH:ATC Patient Audit Record Repository shall use the CH:ADR Authorization Decision Request transaction to authorize the transaction and enforce the authorization decision retrieved from CH:ADR Authorization Decision Response.
 
+The actors SHALL support the _traceparent_ header handling, as defined in [Appendix: Trace Context](tracecontext.html).
 
 #### Security Audit Considerations
-An audit event as specified in [Access Audit Trail Content Profile](volume-3.html#access-audit-trail-content-profile) shall be returned by a query to Patient Audit Record Repository after the Patient Audit Record Repository has been queried by a Patient Audit Consumer.
+An audit event as specified in [Access Audit Trail Content Profile](volume3.html#access-audit-trail-content-profile) shall be returned by a query to Patient Audit Record Repository after the Patient Audit Record Repository has been queried by a Patient Audit Consumer.

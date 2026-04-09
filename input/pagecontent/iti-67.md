@@ -42,7 +42,8 @@ traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-00
 
 The Document Responder SHALL process the query to discover the DocumentReference entries that match the search parameters given.
 
-Document Responder SHALL support search page count requests from the Document Consumer of up to 100 resources.
+The Document Responder SHALL set the `DocumentReference.content.attachment.url` value to the URL used in ITI-68
+transactions to retrieve that document's content.
 
 ##### Federated Cross Community Access Option
 
@@ -76,10 +77,9 @@ The CapabilityStatement resource for the **Document Responder** is [MHD Document
 The transaction SHALL be secured by Transport Layer Security (TLS) encryption and server authentication with
 server certificates. Transactions across communities SHALL use mTLS.
 
-The transaction SHALL use client authentication and authorization using extended authorization token as defined
-in the [IUA profile](https://profiles.ihe.net/ITI/IUA). The extended authorization token SHALL be conveyed as
-defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72)
-transaction.
+The transaction SHALL use client authentication and authorization using one of the following strategies:
+1. Use an extended access token defined in [IUA](iti-71.html) conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
+2. or, use mutual authentication (mTLS) on the transport layer in combination with a XUA token for authorization from the Get X-User Assertion transaction (Annex 5.1 1.6.4.2). The XUA token SHALL be conveyed as defined in the [Incorporate Access Token [ITI-72]](https://profiles.ihe.net/ITI/IUA/index.html#372-incorporate-access-token-iti-72) transaction.
 
 All Document Responders except the one with the Federated Cross Community Access Option SHALL be grouped with the Authorization Decision Consumer actor of the CH:ADR profile
 defined in Extension 2.1 to Annex 5 of the ordinances and perform an Authorization Decision Request [CH:ADR] for
@@ -91,12 +91,12 @@ The actors SHALL support the _traceparent_ header handling, as defined in [Appen
 
 ##### Document Consumer Audit
 
-The **Document Consumer** shall record a
+The **Document Consumer** SHALL record an audit event according to
 [CH Audit Event for [ITI-67] Document Consumer](StructureDefinition-ChAuditEventIti67Consumer.html) 
 ([example](AuditEvent-ChAuditEventIti67ConsumerExample.html)).
 
 ##### Document Responder Audit
 
-The **Document Responder** shall record a
+The **Document Responder** SHALL record an audit event according to
 [CH Audit Event for [ITI-67] Document Responder](StructureDefinition-ChAuditEventIti67Responder.html)
 ([example](AuditEvent-ChAuditEventIti67ResponderExample.html)).

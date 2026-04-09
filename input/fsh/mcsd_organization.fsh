@@ -9,9 +9,11 @@ Description: "CH mCSD profile on Organization"
 * identifier contains OID 1..1 and HpdUid 0..1
 * identifier[OID] only OidIdentifier
 * identifier[OID] ^short = "The OID of the organization in the community"
+* identifier[OID] ^patternIdentifier.system = "urn:ietf:rfc:3986"
 * identifier[HpdUid] only HpdUidIdentifier
 * identifier[HpdUid] ^short = "UID (unique identifier) of the provider stored in an HPD"
 * identifier.extension contains HcIdentifierStatusExtension named status 0..1   // if not present, assume status "active"
+* type 1..
 * name 1..
 * name.extension contains HcOrganizationRegisteredNamesExtension named registeredName 0..*
 * alias 1..

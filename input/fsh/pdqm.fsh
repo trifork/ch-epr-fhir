@@ -1,25 +1,9 @@
-Profile: CHPDQmProviderOrganization
-Parent: Organization
-Id: ch-pdqm-provider-organization
-Title: "CH PDQm Provider Organization"
-Description: "Organization"
-* obeys ch-epr-fhir-org-1
-* . ^short = "CH PDQm Provider Organization"
-* identifier 1.. MS
-* identifier ^short = "The value shall be expressed as an ISO OID"
-
-Invariant: ch-epr-fhir-org-1
-Description: "The organization SHALL have at least one of telecom, address, or contact person to be present."
-* severity = #error
-* expression = "(telecom.count() + address.count() + contact.name.count()) > 0"
-
 Profile: CHPDQmPatient
 Parent: $ch-core-patient
 Id: ch-pdqm-patient
 Title: "CH PDQm Patient"
 Description: "The patient demographics and identifier information which can be provided in the PDQm response according to the EPR. If the patient is already registered in a community, the MPI-PID SHALL be provided as an identifier. The EPR-SPID as an identifier MAY be added. The birthname can be added with the ISO 21090 qualifier extension."
-* extension[PatReligion] 0..0
-* identifier MS
+* extension[religion] 0..0
 * identifier[EPR-SPID] 1..1 MS
 * identifier[LocalPid] 0..* MS
 * name MS
@@ -35,9 +19,6 @@ Description: "The patient demographics and identifier information which can be p
 * name[BirthName] ^short = "The birthname of the patient"
 * name[BirthName] ^comment = "The birthname is added with the ISO 21090 qualifier https://www.hl7.org/fhir/extension-iso21090-en-qualifier.html BR"
 * contact 0..0
-* managingOrganization only Reference(CHPDQmProviderOrganization)
-* managingOrganization MS
-* managingOrganization ^short = "Provider organization of the patient"
 
 // https://github.com/IHE/ITI.PDQm/blob/main/input/fsh/PDQmMatch.fsh
 Instance: CHPDQmMatch
@@ -60,7 +41,6 @@ and to constrain the output parameters to use the [PDQm Patient Profile](Structu
 * type = true
 * instance = false
 * code = #match
-* inputProfile = Canonical(CHPDQmMatchParametersIn)
 * parameter[+]
   * name = #resource
   * use = #in
@@ -68,6 +48,7 @@ and to constrain the output parameters to use the [PDQm Patient Profile](Structu
   * max = "1"
   * documentation = "Use this to provide an entire set of patient details for the MPI to match against (e.g. POST a patient record to Patient/$match)."
   * type = #Patient
+  * targetProfile[+] = Canonical(ch-pdqm-patient)
 * parameter[+]
   * name = #onlyCertainMatches
   * use = #in
@@ -239,7 +220,7 @@ Usage: #inline
 * identifier[LocalPid][+].system = "urn:oid:2.999.5.6.7"
 * identifier[LocalPid][=].value = "value of MPI-PID"
 * identifier[LocalPid][+].type = $v2-0203#MR
-* identifier[LocalPid][=].system = "urn:oid:2.16.756.888888.3.1"
+* identifier[LocalPid][=].system = "urn:oid:2.999.1.2.3.4"
 * identifier[LocalPid][=].value = "8734"
 * name.family = "Muster"
 * name.given = "Franz"
@@ -256,8 +237,8 @@ Usage: #example
 * type = #searchset
 * total = 1
 * link.relation = "self"
-* link.url = "https://example.org/fhir/Patient/$match"
-* entry[Patient][+].fullUrl = "https://example.org/fhir/Patient/FranzMuster"
+* link.url = "http://example.com/Patient/$match"
+* entry[Patient][+].fullUrl = "http://example.com/Patient/FranzMuster"
 * entry[Patient][=].resource = FranzMuster
 * entry[Patient][=].search.mode = #match
 * entry[Patient][=].search.score = 1
@@ -272,7 +253,7 @@ Usage: #example
 * type = #searchset
 * total = 0
 * link.relation = "self"
-* link.url = "https://example.org/fhir/Patient/$match"
+* link.url = "http://example.com/Patient/$match"
 * entry[OperationOutcome].fullUrl = "urn:uuid:13c56fd3-f2f1-4174-ae56-c91f027ffddf"
 * entry[OperationOutcome].resource = PDQmResponseMoreAttributesRequested
 * entry[OperationOutcome].search.mode = #outcome
@@ -285,7 +266,7 @@ Parent:      AuditPdqmMatchConsumer
 Title:       "CH Audit Event for [ITI-119] Patient Demographics Consumer"
 Description: "This profile is used to define the CH Audit Event for the [ITI-119] transaction and the actor 'Patient
               Demographics Consumer'."
-* insert ChAuditEventExtendedRules
+* insert ChAuditEventBasicRules
 * agent[client] ^short = "The 'Patient Demographics Consumer' actor (EPR application)"
 * agent[server] ^short = "The 'Patient Demographics Supplier' actor (EPR API)"
 * entity[patient].what.identifier 1..1
@@ -298,7 +279,7 @@ Parent:      AuditPdqmMatchSupplier
 Title:       "CH Audit Event for [ITI-119] Patient Demographics Supplier"
 Description: "This profile is used to define the CH Audit Event for the [ITI-119] transaction and the actor 'Patient
 Demographics Supplier'."
-* insert ChAuditEventExtendedRules
+* insert ChAuditEventBasicRules
 * agent[client] ^short = "The 'Patient Demographics Consumer' actor (EPR application)"
 * agent[server] ^short = "The 'Patient Demographics Supplier' actor (EPR API)"
 * entity[patient].what.identifier 1..1
@@ -328,7 +309,7 @@ RuleSet: ChAuditEventIti119ExampleRules
 * type = $auditEventType#rest
 * subtype[anySearch] = $restfulInteraction#search "search"
 * subtype[iti119] = $eventTypeCode#ITI-119 "Patient Demographics Match"
-* agent[server].network.address = "https://example.org/fhir/"
+* agent[server].network.address = "http://example.com"
 * entity[query]
   * type = $auditEntityType#2
   * role = $objectRole#24

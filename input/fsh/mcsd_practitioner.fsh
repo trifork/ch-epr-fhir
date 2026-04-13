@@ -10,6 +10,27 @@ Description: "CH mCSD profile on Practitioner"
 * identifier[LDAP] ^short = "LDAP DN (Distinguished Name), if the practitioner is stored in an HPD"
 * identifier[LDAP] ^patternIdentifier.system = "urn:ietf:rfc:4514"
 
+* telecom contains mobile 0..* and
+                   pager 0..* and
+                   facsimileTelephoneNumber 0..*
+* telecom ^slicing.discriminator[0].type = #value
+* telecom ^slicing.discriminator[=].path = "system"
+* telecom ^slicing.discriminator[+].type = #value
+* telecom ^slicing.discriminator[=].path = "use"
+* telecom ^slicing.rules = #open
+* telecom ^slicing.ordered = false
+* telecom[mobile].system                        = #phone (exactly)
+* telecom[mobile].use                           = #mobile (exactly)
+* telecom[pager].system                         = #pager (exactly)
+* telecom[pager].use                            = #work (exactly)
+* telecom[facsimileTelephoneNumber].system      = #fax (exactly)
+* telecom[facsimileTelephoneNumber].use         = #work (exactly)
+
+* telecom[email].use = #work (exactly)
+* telecom[phone].use = #work (exactly)
+
+* extension contains HcProfessionalMedicalRecordsDeliveryEmailAddressExtension named medicalRecordsDeliveryEmailAddress 0..1
+
 
 Invariant: ch-mcsd-practitioner-ihe-conformance
 Description: "The Practitioner needs to conform to IHE.mCSD.Practitioner"
@@ -52,17 +73,17 @@ Title:    "LDAP schema"
 * name.text -> "HCProfessional.cn"
 * communication.coding.code -> "HCProfessional.hpdProviderLanguageSupported"
 * gender -> "HCProfessional.gender"
-* telecom -> "HCProfessional.hpdMedicalRecordsDeliveryEmailAddress"
-* telecom -> "HCProfessional.mail"
+* extension[medicalRecordsDeliveryEmailAddress] -> "HCProfessional.hpdMedicalRecordsDeliveryEmailAddress"
+* telecom[email] -> "HCProfessional.mail"
 * meta.lastUpdated -> "HCProfessional.modifyTimestamp"
 * address -> "HCProfessional.physicalDeliveryOfficeName"
 * address -> "HCProfessional.hpdProviderMailingAddress"
 * address -> "HCProfessional.hpdProviderBillingAddress"
 * address -> "HCProfessional.hpdProviderPracticeAddress"
-* telecom -> "HCProfessional.telephoneNumber" // [system='phone']
-* telecom -> "HCProfessional.mobile"
-* telecom -> "HCProfessional.pager"
-* telecom -> "HCProfessional.facsimileTelephoneNumber" // [system='fax']
+* telecom[phone] -> "HCProfessional.telephoneNumber"
+* telecom[mobile] -> "HCProfessional.mobile"
+* telecom[pager] -> "HCProfessional.pager"
+* telecom[facsimileTelephoneNumber] -> "HCProfessional.facsimileTelephoneNumber"
 * qualification.code -> "HCProfessional.hcSpecialisation"
 * address -> "HCProfessional.hpdProviderLegalAddress"
 
@@ -100,3 +121,4 @@ Description: "An example of CHmCSDPractitioner that contains the same informatio
 * communication[+].coding = $bcp47#fr
 * communication[+].coding = $bcp47#en
 * communication[+].coding = $bcp47#it
+* extension[medicalRecordsDeliveryEmailAddress].valueString = "delivery-inbox@peter.pan"

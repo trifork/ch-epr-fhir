@@ -15,6 +15,17 @@ Description: "CH mCSD profile on Organization"
 * type 1..
 * name 1..
 
+* telecom contains facsimileTelephoneNumber 0..*
+* telecom ^slicing.discriminator[0].type = #value
+* telecom ^slicing.discriminator[=].path = "system"
+* telecom ^slicing.discriminator[+].type = #value
+* telecom ^slicing.discriminator[=].path = "use"
+* telecom ^slicing.rules = #open
+* telecom ^slicing.ordered = false
+* telecom[facsimileTelephoneNumber].system      = #fax (exactly)
+* telecom[facsimileTelephoneNumber].use         = #work (exactly)
+
+* telecom[phone].use = #work (exactly)
 
 Invariant: ch-mcsd-organization-ihe-conformance
 Description: "The Organization needs to conform to IHE.mCSD.Organization"
@@ -39,8 +50,8 @@ Title:    "LDAP schema"
 * contact.address -> "HCRegulatedOrganization.hpdProviderBillingAddress"
 * contact.address -> "HCRegulatedOrganization.hpdProviderMailingAddress"
 * type -> "HCRegulatedOrganization.HcSpecialisation"
-* telecom -> "HCRegulatedOrganization.telephoneNumber"
-* telecom -> "HCRegulatedOrganization.facsimileTelephoneNumber"
+* telecom[phone] -> "HCRegulatedOrganization.telephoneNumber"
+* telecom[facsimileTelephoneNumber] -> "HCRegulatedOrganization.facsimileTelephoneNumber"
 * partOf -> "HCRegulatedOrganization.memberOf"
 * meta.lastUpdated -> "HCRegulatedOrganization.modifyTimestamp"
 * contact.address -> "HCRegulatedOrganization.hpdProviderLegalAddress"

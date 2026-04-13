@@ -62,6 +62,8 @@ pages:
     title: RESTful ATNA
   iti-mcsd.md:
     title: Mobile Care Services Discovery (mCSD)
+  mcsd-hpd-mapping.md:
+    title: Mapping between mCSD and HPD data models
   ppqm.md:
     title: Privacy Policy Query for Mobile (CH:PPQm)
   ch-atc.md:
